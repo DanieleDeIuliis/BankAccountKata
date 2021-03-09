@@ -1,40 +1,40 @@
-import io.mockk.mockk
-import io.mockk.verify
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import java.time.LocalDateTime
+import java.io.ByteArrayOutputStream
+import java.io.PrintStream
+import java.time.LocalDate
 
+@Disabled
 class DepositAcceptanceTest {
-
-    private val statements: Statements = mockk(relaxed = true)
+    private val outputStream = ByteArrayOutputStream()
+    private lateinit var account: Account
 
     @Test
     fun `deposit an amount`() {
-//        `given an account just created with a balance of`(0)
-//        `when deposit an amount of`(1000)
-//        `then the balance is`(1000)
+        `given an account just created`()
+        `and a deposit amount`(of = 1000, on = "2021-01-01")
+        `when the account prints its statements`()
+        `then the printed statements are equal to`("""
+            |date || amount || balance
+            |2021-01-01 || 1000 || 1000
+        """.trimMargin())
+    }
 
-        val date = LocalDateTime.parse("2021-01-01T00:00:00")
-        val account = Account(statements = statements)
-        account.deposit(amount = 1000, date)
-        verify { statements.add(Transaction(date = date, amount = 1000), balance = 1000) }
+    private fun `given an account just created`() {
+        account = Account(InMemoryStatements())
+    }
+
+    private fun `and a deposit amount`(of: Int, on: String) {
+        account.deposit(of, LocalDate.parse(on))
+    }
+
+    private fun `when the account prints its statements`() {
+        account.printStatements(PrintStream(outputStream))
+    }
+
+    private fun `then the printed statements are equal to`(text: String) {
+        assertThat(String(outputStream.toByteArray())).isEqualTo(text)
     }
 }
 
-class Account(private val statements: Statements) {
-
-    fun deposit(amount: Int, date: LocalDateTime) {
-        statements.add(Transaction(date, amount), currentBalance(amount))
-    }
-
-    private fun currentBalance(amount: Int): Int {
-        return 0 + amount
-    }
-
-}
-
-data class Transaction(val date: LocalDateTime, val amount: Int)
-
-interface Statements {
-    fun add(transaction: Transaction, balance: Int)
-
-}
