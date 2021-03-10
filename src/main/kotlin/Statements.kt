@@ -1,4 +1,4 @@
 interface Statements {
-    fun add(transaction: Transaction, startingBalance: Int)
+    fun add(transaction: Transaction, currentBalance: Int)
 
 }

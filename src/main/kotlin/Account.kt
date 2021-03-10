@@ -3,12 +3,11 @@ import java.time.LocalDate
 
 class Account(private val statements: Statements) {
 
-    fun deposit(amount: Int, date: LocalDate) {
-        statements.add(Transaction(date, amount), currentBalance())
-    }
+    private var balance = 0
 
-    private fun currentBalance(): Int {
-        return 0
+    fun deposit(amount: Int, date: LocalDate) {
+        balance += amount
+        statements.add(Transaction(date, amount), balance)
     }
 
     fun printStatements(printer: PrintStream) {

@@ -11,13 +11,15 @@ class DepositAcceptanceTest {
     private lateinit var account: Account
 
     @Test
-    fun `deposit an amount`() {
+    fun `print the correct statements after multiple deposits`() {
         `given an account just created`()
-        `and a deposit amount`(of = 1000, on = "2021-01-01")
+        `and a deposit amount`(of = 200, on = "2021-01-01")
+        `and a deposit amount`(of = 1000, on = "2021-01-02")
         `when the account prints its statements`()
         `then the printed statements are equal to`("""
             |date || amount || balance
-            |2021-01-01 || 1000 || 1000
+            |2021-01-02 || 1000 || 1200
+            |2021-01-01 || 200 || 200
         """.trimMargin())
     }
 
