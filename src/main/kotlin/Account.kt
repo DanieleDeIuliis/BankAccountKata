@@ -11,7 +11,10 @@ class Account(private val statements: Statements) {
     }
 
     fun printStatements(printer: PrintStream) {
-        TODO("Not yet implemented")
+        printer.println("date || amount || balance")
+        statements.all().asReversed().forEach { statement ->
+            printer.println("${statement.transaction.date} || ${statement.transaction.amount} || ${statement.balanceAfter()}")
+        }
     }
 
 }
