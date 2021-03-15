@@ -40,8 +40,8 @@ class AccountTest {
         account.deposit(amount = 900, firstDate)
         account.deposit(amount = 500, secondDate)
         every { statements.all() } returns listOf(
-            Statement(Transaction(firstDate, 900), 0),
-            Statement(Transaction(secondDate, 500), 900)
+            Statement(Transaction(secondDate, 500), 900),
+            Statement(Transaction(firstDate, 900), 0)
         )
 
 
