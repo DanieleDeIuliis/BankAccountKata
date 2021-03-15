@@ -5,7 +5,6 @@ import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import java.time.LocalDate
 
-@Disabled
 class DepositAcceptanceTest {
     private val outputStream = ByteArrayOutputStream()
     private lateinit var account: Account
@@ -20,7 +19,7 @@ class DepositAcceptanceTest {
             |date || amount || balance
             |2021-01-02 || 1000 || 1200
             |2021-01-01 || 200 || 200
-        """.trimMargin())
+        |""".trimMargin())
     }
 
     private fun `given an account just created`() {

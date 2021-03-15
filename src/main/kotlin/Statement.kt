@@ -1,3 +1,3 @@
-data class Statement(val transaction: Transaction, val currentBalance: Int) {
-    fun balanceAfter() = currentBalance + transaction.amount
+data class Statement(val transaction: Transaction, val balanceBefore: Int) {
+    fun balanceAfter() = balanceBefore + transaction.amount
 }

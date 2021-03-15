@@ -1,5 +1,5 @@
 interface Statements {
-    fun add(transaction: Transaction, currentBalance: Int)
+    fun add(transaction: Transaction, balanceBefore: Int)
     fun all(): List<Statement>
 
 }

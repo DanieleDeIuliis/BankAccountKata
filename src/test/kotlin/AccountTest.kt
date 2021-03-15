@@ -16,7 +16,7 @@ class AccountTest {
         val date = LocalDate.parse("2021-01-01")
         val account = Account(statements = statements)
         account.deposit(amount = 1000, date)
-        verify { statements.add(Transaction(date = date, amount = 1000), currentBalance = 1000) }
+        verify { statements.add(Transaction(date = date, amount = 1000), balanceBefore = 0) }
     }
 
     @Test
@@ -27,8 +27,8 @@ class AccountTest {
         account.deposit(amount = 900, firstDate)
         account.deposit(amount = 500, secondDate)
         verifyOrder {
-            statements.add(Transaction(date = firstDate, amount = 900), currentBalance = 900)
-            statements.add(Transaction(date = secondDate, amount = 500), currentBalance = 1400)
+            statements.add(Transaction(date = firstDate, amount = 900), balanceBefore = 0)
+            statements.add(Transaction(date = secondDate, amount = 500), balanceBefore = 900)
         }
     }
 

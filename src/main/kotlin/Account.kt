@@ -6,8 +6,8 @@ class Account(private val statements: Statements) {
     private var balance = 0
 
     fun deposit(amount: Int, date: LocalDate) {
-        balance += amount
         statements.add(Transaction(date, amount), balance)
+        balance += amount
     }
 
     fun printStatements(printer: PrintStream) {
