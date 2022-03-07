@@ -1,3 +1,5 @@
+import java.io.PrintStream
+
 class InMemoryStatements : Statements {
 
     private val statements = mutableListOf<Statement>()
@@ -6,7 +8,9 @@ class InMemoryStatements : Statements {
         statements.add(0, Statement(transaction, balanceBefore))
     }
 
-    override fun all(): List<Statement> {
-        return statements
+    override fun printTo(printer: PrintStream) {
+        statements.forEach { statement ->
+            statement.printTo(printer)
+        }
     }
 }

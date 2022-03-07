@@ -39,18 +39,10 @@ class AccountTest {
         val account = Account(statements = statements)
         account.deposit(amount = 900, firstDate)
         account.deposit(amount = 500, secondDate)
-        every { statements.all() } returns listOf(
-            Statement(Transaction(secondDate, 500), 900),
-            Statement(Transaction(firstDate, 900), 0)
-        )
 
 
         account.printStatements(printStream)
 
-        verifyOrder {
-            printStream.println("date || amount || balance")
-            printStream.println("2021-03-02 || 500 || 1400")
-            printStream.println("2021-02-01 || 900 || 900")
-        }
+        verify { statements.printTo(printStream) }
     }
 }

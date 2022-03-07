@@ -1,6 +1,8 @@
+import java.io.PrintStream
+
 interface Statements {
     fun add(transaction: Transaction, balanceBefore: Int)
-    fun all(): List<Statement>
+    fun printTo(printer: PrintStream)
 
 }
 

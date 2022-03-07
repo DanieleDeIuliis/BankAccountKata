@@ -12,9 +12,7 @@ class Account(private val statements: Statements) {
 
     fun printStatements(printer: PrintStream) {
         printer.println("date || amount || balance")
-        statements.all().forEach { statement ->
-            printer.println("${statement.transaction.date} || ${statement.transaction.amount} || ${statement.balanceAfter()}")
-        }
+        statements.printTo(printer)
     }
 
 }
